@@ -14,7 +14,7 @@ router.get('/logout', (req, res)=>{
 //auth google
 router.get('/google', (req, res)=>{
     //handle with passport
-    res.send('google auth loggin in');
+    res.send('google auth logging in');
 });
 
 module.exports = router;
