@@ -18,7 +18,7 @@ router.get('/google', passport.authenticate('google',{
 }));
 
 // after successful signup callback handler for auth/google/redirect
-router.get('/google/redirect', (req, res)=>{
+router.get('/google/redirect', passport.authenticate('google'), (req, res)=>{
     res.send('You have reached the redirect URL');
 });
 module.exports = router;
