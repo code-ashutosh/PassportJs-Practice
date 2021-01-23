@@ -3,13 +3,15 @@ const passport = require('passport');
 const passportSetup = require('../config/passport-setup');
 //auth login
 router.get('/login', (req, res)=>{
-    res.render('login');
+    res.render('login',{user: req.user});
 });
 
 //auth logout
 router.get('/logout', (req, res)=>{
     //handle with passport
-    res.send('logging out');
+    // res.send('logging out');
+    req.logout();
+    res.redirect('/');
 });
 
 //auth google
