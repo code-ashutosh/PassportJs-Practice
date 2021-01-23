@@ -11,7 +11,7 @@ const app = express();
 app.set('view engine','ejs');
 
 // connect to mongodb
-mongoose.connect(keys.mongodb.uri, {useNewUrlParser:true, useUnifiedTopology:true}, ()=>{
+mongoose.connect(keys.mongodb.localUri, {useNewUrlParser:true, useUnifiedTopology:true}, ()=>{
     // connection established
     console.log('connected successfully');
 });
