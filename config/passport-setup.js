@@ -1,5 +1,5 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20');
 
 //import keys
 const keys = require('./keys');
@@ -10,13 +10,16 @@ const User = require('../models/user-model');
 // serialize user
 passport.serializeUser((user, done)=>{
     done(null, user.id); // In the first param you have to pass if an error occurs for now it's null
+    console.log("cookie all set for the user:" + user);
 })
 
 // deserialize user
 passport.deserializeUser((id, done)=>{
     // lookup if a user exists with this id(mongodb id)
-    User.findById(id).then((user)=>{
+    User.findById(id)
+    .then((user)=>{
         done(null, user);
+        console.log("cookie verified for the user:" + user);
     })
     .catch((ex) => console.log(ex));
 })
@@ -40,7 +43,6 @@ passport.use(
             }
             else{
                 // create user
-
                 const user = new User({
                     username: profile.displayName,
                     googleId: profile.id
@@ -50,6 +52,7 @@ passport.use(
                 user.save()
                 .then((newUser)=>{
                     console.log('User saved:' + newUser);
+                    done(null ,newUser);
                 })
                 .catch((ex)=>{
                     console.log(ex);

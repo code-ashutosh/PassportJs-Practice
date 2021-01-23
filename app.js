@@ -1,10 +1,16 @@
 const express = require('express');
-const authRoutes = require('./routes/auth-routes');
-const ejs = require('ejs');
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
+const ejs = require('ejs');
+const passport = require('passport');
+const keys = require('./config/keys');
+const passportSetup = require('./config/passport-setup');
+
+const authRoutes = require('./routes/auth-routes');
+const profileRoutes = require('./routes/profile-routes');
+
 const PORT = process.env.PORT || 3000;
+
 const app = express();
 
 // setting view engine
@@ -29,6 +35,7 @@ app.use(passport.session());
 
 // set up auth routes
 app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 
 // home route
 app.get('/', (req, res)=>{
